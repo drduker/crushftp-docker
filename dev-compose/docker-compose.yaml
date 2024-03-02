@@ -1,1 +1,17 @@
-# in progress...
+version: '3.8'
+services:
+  crushftp:
+    image: 'crushftp/crushftp10:latest-dev'
+    container_name: crushftp
+    ports:
+      - '8081:8080'
+      - '9091:9090'
+      - '8443:443'
+    # environment:
+    #   CRUSHFTP_ADMIN_USERNAME: "crushadmin"
+    #   CRUSHFTP_ADMIN_PASSWORD: "password"
+    # build:
+    #   context: .
+    #   dockerfile: local.Dockerfile
+    # volumes:
+    # - ./CrushFTP10/:/app/test

@@ -1,12 +1,14 @@
 # Crushftp files
-./Crushftp*
-./backup
-./CrushFTP10
-./jobs
-./users
-./syncsDB
-./statsDB
-./prefs.XML
-./sessions.obj
-./install_readme_*
-./test.yaml
+backup
+CrushFTP10
+jobs
+users
+syncsDB
+statsDB
+prefs.XML
+sessions.obj
+install_readme_*
+test*
+CrushFTP*.zip
+notes
+ssh_*
