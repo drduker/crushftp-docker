@@ -1,12 +1,12 @@
 version: '3.8'
 services:
   crushftp:
-    image: 'crushftp/crushftp10:latest'
+    image: 'crushftp/crushftp11:latest'
     container_name: crushftp
     ports:
       - '8081:8080'
       - '9091:9090'
       - '8443:443'
-    # command: java -Dcrushftp.users=./tmp/users/ -Ddir=/app -Xmx512M -jar plugins/lib/CrushFTPJarProxy.jar -ad crushadmin password
+    # command: java -Ddir=/app -Xmx512M -jar plugins/lib/CrushFTPJarProxy.jar "-ad crushadmin password"
     # volumes:
     # - ./users/:/app/users/

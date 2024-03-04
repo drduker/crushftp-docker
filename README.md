@@ -1,26 +1,35 @@
 # Crushftp 10/11 Container build
 
-### Running docker with a local volume:
-```
-./local-dev-CrushFTP10.sh
-```
 
-### Run dev docker compose (dcup)
-```
-cd dev-compose
-docker compose up
-```
+
 
 ### Production docker run
+Note: All files run and accessible only within the container this way
 ```shell
-docker run -p 8080:8080 -p 9090:9090 -p 8443:443 crushftp/crushftp10:latest
+docker run -p 8080:8080 -p 9090:9090 -p 8443:443 crushftp/crushftp11:latest
 ```
 
-### Run Production docker compose (dcup)
+### Run local-dev with a local volume with host user:
+```
+docker run -p 8081:8080 -p 9091:9090 -p 8443:443 \
+-v "$(pwd)/CrushFTP10:/app/CrushFTP10:rw" -u $(id -u) \
+crushftp/crushftp10:local-dev
+```
+
+### Run Production image docker compose (dcup)
+```
+earthly +run
+```
+or
 ```
 docker compose up
 ```
 
+
+### Running docker with a local volume with host user:
+```
+./scripts/local-dev-CrushFTP10.sh
+```
 
 ### Notes
 Clean up crushftp running/exited containers
@@ -28,9 +37,3 @@ Clean up crushftp running/exited containers
 docker rm $(docker ps -a |grep crushftp | awk '{print $1}') --force
 ```
 
-Setting password on startup:
-```shell
-java -jar CrushFTP.jar -a crushadmin password
-or
-java -jar CrushFTP.jar -ad crushadmin password
-```

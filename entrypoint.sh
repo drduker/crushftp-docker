@@ -13,15 +13,12 @@ if [ -d "/app/CrushFTP10" ]; then
     java -jar CrushFTP.jar -a crushadmin password
     echo "Starting CrushFTP..."
     # Execute your Java command
-    java -Ddir=/app/CrushFTP10/ -Xmx512M -jar /app/plugins/lib/CrushFTPJarProxy.jar -d
+    java -Ddir=/app/CrushFTP10/ -Xmx512M -jar /app/plugins/lib/CrushFTPJarProxy.jar -ad ${CRUSHFTP_ADMIN_USERNAME:-crushadmin} ${CRUSHFTP_ADMIN_PASSWORD:-password}
 else
     echo "Shell exec run"
-    mkdir -p /app/CrushFTP
-    cp -r /app/ /app/CrushFTP/
-
-    cd /app/CrushFTP
-    java -jar CrushFTP.jar -a $CRUSHFTP_ADMIN_USERNAME $CRUSHFTP_ADMIN_PASSWORD
+    cd /app
+    # java -jar CrushFTP.jar -a $CRUSHFTP_ADMIN_USERNAME $CRUSHFTP_ADMIN_PASSWORD
     # Execute your Java command
-    java -Ddir=/app/CrushFTP/ -Xmx512M -jar /app/CrushFTP/plugins/lib/CrushFTPJarProxy.jar -d
+    java -Ddir=/app/ -Xmx512M -jar /app/plugins/lib/CrushFTPJarProxy.jar -ad ${CRUSHFTP_ADMIN_USERNAME:-crushadmin} ${CRUSHFTP_ADMIN_PASSWORD:-password}
 
 fi
