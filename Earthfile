@@ -4,9 +4,12 @@ FROM cgr.dev/chainguard/jre:latest-dev
 
 build-all:
   # BUILD --platform=linux/amd64 --platform=linux/arm/v7 +build-local-image
+  BUILD +download-crushftp-10
+  BUILD +download-crushftp-11
   BUILD +local
   BUILD +dev
   BUILD +prd
+  BUILD +arm
 
 local:
   BUILD +build-local-image
@@ -19,6 +22,11 @@ dev:
 prd:
   BUILD +build-10
   BUILD +build-11
+
+arm:
+  # BUILD --platform=linux/arm64 +download-crushftp-11
+  BUILD --platform=linux/arm64 +build-11-arm
+  BUILD --platform=linux/arm64 +build-10-arm
 
 
 download-crushftp-10:
@@ -140,6 +148,31 @@ build-11:
   ENTRYPOINT ["java", "-Ddir=/app", "-Xmx512M", "-jar", "plugins/lib/CrushFTPJarProxy.jar", "-ad", "crushadmin", "password"]
   SAVE IMAGE --push crushftp/crushftp11:latest crushftp/crushftp11:$VERSION
 
+build-11-arm:
+  FROM cgr.dev/chainguard/jre:latest-dev
+  # Pull datetime from build-arg for use in OCI labels
+  ARG RFC_DATE_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+  # ENV VERSION $VERSION
+  ARG VERSION=beta
+  ENV DATE_TIME $RFC_DATE_TIME
+  # Add some OCI labels
+  LABEL org.opencontainers.image.vendor="CrushFTP, LLC"
+  LABEL org.opencontainers.image.title="CrushFTP"
+  LABEL org.opencontainers.image.version=$VERSION
+  LABEL org.opencontainers.image.description="Image for CrushFTP Server"
+  LABEL org.opencontainers.image.created=$DATE_TIME
+  LABEL org.opencontainers.image.os="wolfi"
+  LABEL org.opencontainers.image.base.name="cgr.dev/chainguard/jre"
+  COPY --chown=java:java (+download-crushftp-11/./CrushFTP11) /app
+  COPY --chown=java:java --chmod 0755 entrypoint.sh /entrypoint.sh
+  # USER java # 65532
+  WORKDIR /app
+  # VOLUME [ "/app/CrushFTP" ]
+  ENTRYPOINT ["java", "-Ddir=/app", "-Xmx512M", "-jar", "plugins/lib/CrushFTPJarProxy.jar", "-ad", "crushadmin", "password"]
+  SAVE IMAGE --push crushftp/crushftp11:latest-arm crushftp/crushftp11:$VERSION-arm
+
+
+
 build-10:
   FROM cgr.dev/chainguard/jre:latest-dev
   # Pull datetime from build-arg for use in OCI labels
@@ -163,6 +196,29 @@ build-10:
   ENTRYPOINT ["java", "-Ddir=/app", "-Xmx512M", "-jar", "plugins/lib/CrushFTPJarProxy.jar", "-ad", "crushadmin", "password"]
   SAVE IMAGE --push crushftp/crushftp10:latest crushftp/crushftp10:$VERSION
 
+build-10-arm:
+  FROM cgr.dev/chainguard/jre:latest-dev
+  # Pull datetime from build-arg for use in OCI labels
+  ARG RFC_DATE_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+  # ENV VERSION $VERSION
+  ARG VERSION=$(wget -qO- https://www.crushftp.com/version10_build.html | head -n 1 | awk '{print $2}' | grep -v selected)
+  ENV DATE_TIME $RFC_DATE_TIME
+  # Add some OCI labels
+  LABEL org.opencontainers.image.vendor="CrushFTP, LLC"
+  LABEL org.opencontainers.image.title="CrushFTP"
+  LABEL org.opencontainers.image.version=$VERSION
+  LABEL org.opencontainers.image.description="Image for CrushFTP Server"
+  LABEL org.opencontainers.image.created=$DATE_TIME
+  LABEL org.opencontainers.image.os="wolfi"
+  LABEL org.opencontainers.image.base.name="cgr.dev/chainguard/jre"
+  COPY --chown=java:java (+download-crushftp-10/./CrushFTP10) /app
+  COPY --chown=java:java --chmod 0755 entrypoint.sh /entrypoint.sh
+  # USER java # 65532
+  WORKDIR /app
+  # VOLUME [ "/app/CrushFTP" ]
+  ENTRYPOINT ["java", "-Ddir=/app", "-Xmx512M", "-jar", "plugins/lib/CrushFTPJarProxy.jar", "-ad", "crushadmin", "password"]
+  SAVE IMAGE --push crushftp/crushftp10:latest-arm crushftp/crushftp10:$VERSION-arm
+
 run-dev:
   LOCALLY
   WITH DOCKER --compose docker-compose-dev.yml
@@ -172,6 +228,12 @@ run-dev:
 run:
   LOCALLY
   WITH DOCKER --compose docker-compose.yml
+    RUN docker compose up 
+  END
+
+run-arm:
+  LOCALLY
+  WITH DOCKER --compose docker-compose-arm.yml
     RUN docker compose up 
   END
 # lint:
