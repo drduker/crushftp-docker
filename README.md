@@ -8,12 +8,13 @@ Note: All files run and accessible only within the container this way
 ```shell
 docker run -p 8080:8080 -p 9090:9090 -p 8443:443 crushftp/crushftp11:latest
 ```
+Default user/pass is crushadmin/password.  CHANGE IT IMMEDIATELY!
 
 ### Run local-dev with a local volume with host user:
 ```
 docker run -p 8081:8080 -p 9091:9090 -p 8443:443 \
--v "$(pwd)/CrushFTP10:/app/CrushFTP10:rw" -u $(id -u) \
-crushftp/crushftp10:local-dev
+-v "$(pwd)/CrushFTP10:/app/CrushFTP11:rw" -u $(id -u) \
+crushftp/crushftp11:local-dev
 ```
 
 ### Run Production image docker compose (dcup)
@@ -28,7 +29,7 @@ docker compose up
 
 ### Running docker with a local volume with host user:
 ```
-./scripts/local-dev-CrushFTP10.sh
+./scripts/local-dev-CrushFTP11.sh
 ```
 
 ### Notes
