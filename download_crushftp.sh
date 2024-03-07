@@ -6,11 +6,11 @@ if [ -n "$1" ]; then
     echo "Version argument 1 is: $1"
     VERSION=${1}
 else
-    VERSION=$(wget -qO- https://www.crushftp.com/version10_build.html | head -n 1 | awk '{print $2}' | grep -v selected)
+    VERSION=$(wget -qO- https://www.crushftp.com/version11_build.html | head -n 1 | awk '{print $2}' | grep -v selected)
 fi
 
 # Check if the file already exists in the local directory
-if [ -f "$VERSION.zip" ] || [ -f "$VERSION-beta.zip" ]; then
+if [ -f "$VERSION.zip" ] ; then
     echo "Local file found. Unzipping..."
 else
     echo "Local file not found. Downloading..."
@@ -20,11 +20,9 @@ fi
 
 echo "This is the version $VERSION"
 
-if [ -f "$VERSION-beta.zip" ]; then
-    cp $VERSION-beta.zip /tmp/$VERSION.zip
-else
-    cp $VERSION.zip /tmp/$VERSION.zip
-fi
+
+cp $VERSION.zip /tmp/$VERSION.zip
+
 
 
 cd /tmp \

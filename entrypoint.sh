@@ -3,17 +3,17 @@
 # Move everything in /app into the /app/test folder
 
 
-if [ -d "/app/CrushFTP10" ]; then
+if [ -d "/app/CrushFTP11" ]; then
     echo "Local Volume Setup"
     echo "So that you can use live volume within same desktop folder"
-    cp -r /app/* /app/CrushFTP10 2>/dev/null
-    rm -rf /app/CrushFTP10/CrushFTP10
+    cp -r /app/* /app/CrushFTP11 2>/dev/null
+    rm -rf /app/CrushFTP11/CrushFTP11
 
-    cd /app/CrushFTP10
+    cd /app/CrushFTP11
     java -jar CrushFTP.jar -a crushadmin password
     echo "Starting CrushFTP..."
     # Execute your Java command
-    java -Ddir=/app/CrushFTP10/ -Xmx512M -jar /app/plugins/lib/CrushFTPJarProxy.jar -ad ${CRUSHFTP_ADMIN_USERNAME:-crushadmin} ${CRUSHFTP_ADMIN_PASSWORD:-password}
+    java -Ddir=/app/CrushFTP11/ -Xmx512M -jar /app/plugins/lib/CrushFTPJarProxy.jar -ad ${CRUSHFTP_ADMIN_USERNAME:-crushadmin} ${CRUSHFTP_ADMIN_PASSWORD:-password}
 else
     echo "Shell exec run"
     cd /app
