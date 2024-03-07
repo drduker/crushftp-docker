@@ -13,7 +13,7 @@ Default user/pass is crushadmin/password.  CHANGE IT IMMEDIATELY!
 ### Run local-dev with a local volume with host user:
 ```
 docker run -p 8081:8080 -p 9091:9090 -p 8443:443 \
--v "$(pwd)/CrushFTP10:/app/CrushFTP11:rw" -u $(id -u) \
+-v "$(pwd)/CrushFTP11:/app/CrushFTP11:rw" -u $(id -u) \
 crushftp/crushftp11:local-dev
 ```
 
