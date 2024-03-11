@@ -1,7 +1,7 @@
 FROM cgr.dev/chainguard/jre:latest-dev
 
-RUN wget -O /tmp/CrushFTP.zip https://www.crushftp.com/early11/CrushFTP11.zip
-# COPY ./CrushFTP11.zip /tmp/CrushFTP.zip
+# RUN wget -O /tmp/CrushFTP.zip https://www.crushftp.com/early11/CrushFTP11.zip
+COPY ./11.0.1_3.zip /tmp/CrushFTP.zip
 RUN cd /tmp \
     && unzip CrushFTP.zip \
     && rm /tmp/CrushFTP11/crushftp_init.sh \
@@ -34,6 +34,6 @@ COPY --from=0 --chown=java:java /tmp/CrushFTP11/ /app
 COPY --chown=java:java --chmod=0755 entrypoint.sh /entrypoint.sh
 
 # USER java # 65532
-WORKDIR /app/CrushFTP11
+WORKDIR /
 
 ENTRYPOINT ["sh", "/entrypoint.sh"]
