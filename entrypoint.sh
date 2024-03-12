@@ -1,12 +1,19 @@
-#!/bin/sh
-if [ -d "/tmp/CrushFTP11" ]; then
+#!/usr/bin/env sh
+if [ "$INIT" = "true" ]; then
+    echo "INIT variable is true."
+    echo "Only copies files over before start"
     echo "Local Volume Setup"
     echo "So that you can use live volume within same desktop folder"
-    cp -r /app/* /tmp/CrushFTP11 2>/dev/null
-    cd /tmp/CrushFTP11
+    cp -r /app/* /app/CrushFTP11 2>/dev/null
+    exit 0
+elif [ -d "/app/CrushFTP11" ]; then
+    echo "Local Volume Setup"
+    echo "So that you can use live volume within same desktop folder"
+    cp -r /app/* /app/CrushFTP11 2>/dev/null
+    cd /app/CrushFTP11
     echo "Starting CrushFTP..."
     # Execute your Java command
-    java -Ddir=/tmp/CrushFTP11/ -Xmx512M -jar /tmp/CrushFTP11/plugins/lib/CrushFTPJarProxy.jar -ad ${CRUSHFTP_ADMIN_USERNAME:-crushadmin} ${CRUSHFTP_ADMIN_PASSWORD:-password}
+    java -Ddir=/app/CrushFTP11/ -Xmx512M -jar /app/CrushFTP11/plugins/lib/CrushFTPJarProxy.jar -ad ${CRUSHFTP_ADMIN_USERNAME:-crushadmin} ${CRUSHFTP_ADMIN_PASSWORD:-password}
 else
     echo "Shell exec run"
     cd /app

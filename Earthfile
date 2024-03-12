@@ -4,7 +4,7 @@ FROM cgr.dev/chainguard/jre:latest-dev
 
 build-all:
   # BUILD --platform=linux/amd64 --platform=linux/arm/v7 +build-local-image
-  BUILD +download-crushftp-11
+  BUILD +download
   BUILD +local
   BUILD +dev
   BUILD +prd
@@ -20,7 +20,7 @@ prd:
   BUILD --platform=linux/amd64 --platform=linux/arm64 +build-11
   # BUILD --platform=linux/amd64 --platform=linux/arm/v7 +build-11-arm
 
-download-crushftp-11:
+download:
   FROM cgr.dev/chainguard/jre:latest-dev
   ARG VERSION=$(wget -qO- https://www.crushftp.com/version11_build.html | head -n 1 | awk '{print $2}' | grep -v selected)
   # ARG VERSION=beta # Copy the script that checks for the latest version
@@ -103,17 +103,11 @@ build-11:
 run-dev:
   LOCALLY
   WITH DOCKER --compose docker-compose-dev.yml
-    RUN docker compose --profile dev up 
+    RUN docker compose up 
   END
 
 run:
   LOCALLY
   WITH DOCKER --compose docker-compose.yml
-    RUN docker compose up 
-  END
-
-run-arm:
-  LOCALLY
-  WITH DOCKER --compose docker-compose-arm.yml
     RUN docker compose up 
   END

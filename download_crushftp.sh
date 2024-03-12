@@ -20,10 +20,7 @@ fi
 
 echo "This is the version $VERSION"
 
-
 cp $VERSION.zip /tmp/$VERSION.zip
-
-
 
 cd /tmp \
 && unzip $VERSION.zip

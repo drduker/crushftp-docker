@@ -1,7 +1,22 @@
 # Crushftp 10/11 Container build
 
+## Getting started
+You need to install
+- Docker - [Install](https://docs.docker.com/get-docker/)  
+- Earthly - [Install](https://earthly.dev/get-earthly)  
 
-### Production docker run
+###  Run CrushFTP11 with docker compose
+Production image:
+```shell
+docker compose up
+```
+
+Run app with shell
+```shell
+docker compose -f docker-compose-dev.yaml up
+```
+
+### Run app with docker run
 Note: All files run are accessible only within the container this way
 ```shell
 docker run -p 8080:8080 -p 9090:9090 -p 8443:443 crushftp/crushftp11:latest
@@ -10,27 +25,18 @@ Default user/pass is crushadmin/password.  CHANGE IT IMMEDIATELY!
 Whether you are running in docker/docker-compose or kubernetes, you can override the entrypoint to remove the initial password or set a different temporary password.  
 
 
-### Run Production image docker compose (dcup)
-Earthly is required for image builds - [Install](https://earthly.dev/get-earthly)  
-```
-earthly +run
-```
-or
-```
-docker compose up
-```
-
 ### Build all images and push
 ```
 earthly --push +build-all
 ```
 
-### Running docker with a local volume with host user:
+### Run Production image docker compose (dcup)
 ```
-./scripts/local-dev-CrushFTP11.sh
+earthly +run
 ```
 
-### Run local-dev with a local volume with host user:
+
+### Run local-dev docker with host user:
 ```
 docker run -p 8081:8080 -p 9091:9090 -p 8443:443 \
 -v "$(pwd)/CrushFTP11:/app/CrushFTP11:rw" -u $(id -u) \
