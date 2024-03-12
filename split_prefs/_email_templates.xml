@@ -4,9 +4,4 @@
 			<name>Welcome1</name>
 			<emailSubject>New account information</emailSubject>
 		</email_templates_subitem>
-		<email_templates_subitem type="properties">
-			<emailBody>Welcome to our server!!! &amp;nbsp;Contact support@crushftp.com with any issues.&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;User:{user_name}&lt;/div&gt;&lt;div&gt;Pass:{password}&lt;/div&gt;</emailBody>
-			<name>Welcome2</name>
-			<emailSubject>New account information</emailSubject>
-		</email_templates_subitem>
 	</email_templates>
