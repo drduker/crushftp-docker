@@ -1,26 +1,24 @@
 version: '3.8'
 services:
   crushftp:
+    user: "${UID}:${GID}"
     image: 'crushftp/crushftp11:latest-dev'
     container_name: crushftp
     ports:
       - '8081:8080'
       - '9091:9090'
       - '8443:443'
-    environment:
-      - HOST_UID=${UID}
-      - HOST_GID=${GID}
+    # environment:
     #   CRUSHFTP_ADMIN_USERNAME: "crushadmin"
     #   CRUSHFTP_ADMIN_PASSWORD: "password"
     # build:
     #   context: .
     #   dockerfile: local.Dockerfile
     volumes:
-    - ./CrushFTP11/:/app/CrushFTP11
+    - ./CrushFTP11/:/app/CrushFTP11:rw
     # entrypoint: ["/bin/sh", "-c", "ls -lah /app/CrushFTP11 && id -u && cp -r /app/* /app/CrushFTP11 && exec /entrypoint.sh"]
-    user: "${UID}:${GID}"
 volumes:
-  local_folder:
+  CrushFTP11:
     driver: local
     driver_opts:
       type: none

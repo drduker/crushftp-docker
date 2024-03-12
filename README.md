@@ -15,6 +15,8 @@ Run app with shell
 ```shell
 docker compose -f docker-compose-dev.yaml up
 ```
+#### Local volume host note:
+To mount the CrushFTP11 folder locally using Docker Compose, it will be mounted by default as the root user. To update the permissions of the local host volume, you can run the command ```sudo chown -R $(id -u):$(id -u) CrushFTP11``` in this repo. This command will update the permissions of the CrushFTP11 folders to use your local running user, making it easier to edit files. Otherwise, you will need to edit them with the root user on the local host machine.
 
 ### Run app with docker run
 Note: All files run are accessible only within the container this way

@@ -5,11 +5,13 @@ if [ "$INIT" = "true" ]; then
     echo "Local Volume Setup"
     echo "So that you can use live volume within same desktop folder"
     cp -r /app/* /app/CrushFTP11 2>/dev/null
+    rm -rf /app/CrushFTP11/CrushFTP11
     exit 0
 elif [ -d "/app/CrushFTP11" ]; then
     echo "Local Volume Setup"
     echo "So that you can use live volume within same desktop folder"
     cp -r /app/* /app/CrushFTP11 2>/dev/null
+    rm -rf /app/CrushFTP11/CrushFTP11
     cd /app/CrushFTP11
     echo "Starting CrushFTP..."
     # Execute your Java command

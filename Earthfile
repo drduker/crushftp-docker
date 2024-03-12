@@ -47,7 +47,7 @@ build-local-image:
   LABEL org.opencontainers.image.base.name="cgr.dev/chainguard/jre"
   LABEL org.opencontainers.image.title="CrushFTP"
   # RUN export VERSION=$(java -jar CrushFTP11/CrushFTP.jar -version)
-  COPY (+download-crushftp-11/./CrushFTP11) /app
+  COPY (+download/./CrushFTP11) /app
   COPY --chown=java:java --chmod 0755 entrypoint.sh /entrypoint.sh
   # USER java # 65532
   WORKDIR /app
@@ -69,7 +69,7 @@ build-dev-11:
   LABEL org.opencontainers.image.created=$DATE_TIME
   LABEL org.opencontainers.image.os="wolfi"
   LABEL org.opencontainers.image.base.name="cgr.dev/chainguard/jre"
-  COPY --chown=java:java (+download-crushftp-11/./CrushFTP11) /app
+  COPY --chown=java:java (+download/./CrushFTP11) /app
   COPY --chown=java:java --chmod 0755 entrypoint.sh /entrypoint.sh
   # USER java # 65532
   WORKDIR /app
@@ -92,7 +92,7 @@ build-11:
   LABEL org.opencontainers.image.created=$DATE_TIME
   LABEL org.opencontainers.image.os="wolfi"
   LABEL org.opencontainers.image.base.name="cgr.dev/chainguard/jre"
-  COPY --chown=java:java (+download-crushftp-11/./CrushFTP11) /app
+  COPY --chown=java:java (+download/./CrushFTP11) /app
   # USER java # 65532
   WORKDIR /app
   # VOLUME [ "/app/CrushFTP" ]
