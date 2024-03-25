@@ -1,4 +1,4 @@
-# Crushftp 10/11 Container build
+# Crushftp 11 Container build
 
 ## Getting started
 You need to install
