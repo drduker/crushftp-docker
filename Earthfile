@@ -17,12 +17,13 @@ dev:
 # --platform=linux/amd64 --platform=linux/arm/v7
 
 prd:
-  BUILD --platform=linux/amd64 --platform=linux/arm64 +build-11 --VERSION=$(wget -qO- https://www.crushftp.com/version11_build.html | head -n 1 | awk '{print $2}' | grep -v selected) --RFC_DATE_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+  BUILD --platform=linux/amd64 --platform=linux/arm64 +build-11
   # BUILD --platform=linux/amd64 --platform=linux/arm/v7 +build-11-arm
 
 download:
   FROM cgr.dev/chainguard/jre:latest-dev
-  ARG VERSION=$(wget -qO- https://www.crushftp.com/version11_build.html | head -n 1 | awk '{print $2}' | grep -v selected)
+  ARG VERSION
+  # ARG VERSION=$(wget -qO- https://www.crushftp.com/version11_build.html | head -n 1 | awk '{print $2}' | grep -v selected)
   # ARG VERSION=beta # Copy the script that checks for the latest version
   COPY download_crushftp.sh /tmp/download_crushftp.sh
   # Copy folder into build context
@@ -57,10 +58,12 @@ download:
 build-dev-11:
   FROM cgr.dev/chainguard/jre:latest-dev
   # Pull datetime from build-arg for use in OCI labels
-  ARG RFC_DATE_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+  # ARG RFC_DATE_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
   # ENV VERSION $VERSION
-  ARG VERSION=$(wget -qO- https://www.crushftp.com/version11_build.html | head -n 1 | awk '{print $2}' | grep -v selected)
-  ENV DATE_TIME $RFC_DATE_TIME
+  # ARG VERSION=$(wget -qO- https://www.crushftp.com/version11_build.html | head -n 1 | awk '{print $2}' | grep -v selected)
+  ARG RFC_DATE_TIME
+  ARG VERSION
+  # ENV DATE_TIME $RFC_DATE_TIME
   # Add some OCI labels
   LABEL org.opencontainers.image.vendor="CrushFTP, LLC"
   LABEL org.opencontainers.image.title="CrushFTP"
