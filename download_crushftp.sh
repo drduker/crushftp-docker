@@ -15,7 +15,7 @@ if [ -f "$VERSION.zip" ] ; then
 else
     echo "Local file not found. Downloading..."
     ls -lah
-    wget -O $VERSION.zip https://www.crushftp.com/early${VERSION:0:2}/CrushFTP${VERSION:0:2}.zip
+    wget -q -O $VERSION.zip https://www.crushftp.com/early${VERSION:0:2}/CrushFTP${VERSION:0:2}.zip
 fi
 
 echo "This is the version $VERSION"
