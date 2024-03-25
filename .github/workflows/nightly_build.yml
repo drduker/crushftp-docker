@@ -24,4 +24,4 @@ jobs:
         export VERSION=$(wget -qO- https://www.crushftp.com/version11_build.html | head -n 1 | awk '{print $2}' | grep -v selected)
         echo "Version is $VERSION"
         export CURRENT_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-        earthly --push +build-all --VERSION=${VERSION} --RFC_DATE_TIME=${CURRENT_DATE}
+        earthly --push +dev --VERSION=${VERSION} --RFC_DATE_TIME=${CURRENT_DATE}
