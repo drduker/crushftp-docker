@@ -1,0 +1,23 @@
+name: Nightly Earthly Build
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # every night at midnight
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Install Earthly
+      run: |
+        curl -sSfL https://earthly.dev/install.sh | sh -s -- -b /usr/local/bin
+        
+    - name: Run Earthly Build
+      run: earthly --push +run-all

@@ -1,4 +1,4 @@
-VERSION 0.8
+VERSION 0.7
 FROM cgr.dev/chainguard/jre:latest-dev
 # WORKDIR /crushftp-docker
 
@@ -50,7 +50,7 @@ build-local-image:
   COPY (+download/./CrushFTP11) /app
   COPY --chown=java:java --chmod 0755 entrypoint.sh /entrypoint.sh
   # USER java # 65532
-  WORKDIR /app
+  # WORKDIR /app
   ENTRYPOINT ["sh", "/entrypoint.sh"]
   SAVE IMAGE --push crushftp/crushftp11:local-dev
 
@@ -72,7 +72,7 @@ build-dev-11:
   COPY --chown=java:java (+download/./CrushFTP11) /app
   COPY --chown=java:java --chmod 0755 entrypoint.sh /entrypoint.sh
   # USER java # 65532
-  WORKDIR /app
+  # WORKDIR /app
   # VOLUME [ "/app/CrushFTP" ]
   ENTRYPOINT ["sh", "/entrypoint.sh"]
   SAVE IMAGE --push crushftp/crushftp11:latest-dev crushftp/crushftp11:$VERSION-dev
@@ -94,7 +94,7 @@ build-11:
   LABEL org.opencontainers.image.base.name="cgr.dev/chainguard/jre"
   COPY --chown=java:java (+download/./CrushFTP11) /app
   # USER java # 65532
-  WORKDIR /app
+  # WORKDIR /app
   # VOLUME [ "/app/CrushFTP" ]
   ENTRYPOINT ["java", "-Ddir=/app", "-Xmx512M", "-jar", "plugins/lib/CrushFTPJarProxy.jar", "-ad", "crushadmin", "password"]
   SAVE IMAGE --push crushftp/crushftp11:latest crushftp/crushftp11:$VERSION
