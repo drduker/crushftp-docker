@@ -22,7 +22,7 @@ jobs:
         docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
         docker stop earthly-buildkitd || true
     - name: Log into Docker Hub
-      run: echo "${DOCKER_TOKEN}" | docker login -u ${DOCKER_USERNAME} --password-stdin
+      run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
     - name: Run Earthly Build
       run: |
         export VERSION=$(wget -qO- https://www.crushftp.com/version11_build.html | head -n 1 | awk '{print $2}' | grep -v selected)
