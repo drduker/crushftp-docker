@@ -18,7 +18,9 @@ jobs:
     - name: Install Earthly
       run: |
         sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/latest/download/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'
-        
+        sudo apt-get install qemu-system binfmt-support qemu-user-static
+        docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+        docker stop earthly-buildkitd || true
     - name: Run Earthly Build
       run: |
         export VERSION=$(wget -qO- https://www.crushftp.com/version11_build.html | head -n 1 | awk '{print $2}' | grep -v selected)

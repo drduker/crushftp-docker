@@ -13,8 +13,8 @@ build-all:
 #   BUILD --platform=linux/amd64 --platform=linux/arm64 +build-local-image
 
 dev:
-  BUILD --platform=linux/amd64 +build-dev-11
-  # BUILD --platform=linux/amd64 --platform=linux/arm64 +build-dev-11
+  # BUILD --platform=linux/amd64 +build-dev-11
+  BUILD --platform=linux/amd64 --platform=linux/arm64 +build-dev-11
 
 # --platform=linux/amd64 --platform=linux/arm/v7
 
