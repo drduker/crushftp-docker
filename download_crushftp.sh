@@ -23,7 +23,7 @@ echo "This is the version $VERSION"
 cp $VERSION.zip /tmp/$VERSION.zip
 
 cd /tmp \
-&& unzip $VERSION.zip
+&& unzip -q $VERSION.zip
 
 # Remove unncessary files
 rm /tmp/CrushFTP${VERSION:0:2}/crushftp_init.sh \
