@@ -20,4 +20,4 @@ jobs:
         sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/latest/download/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'
         
     - name: Run Earthly Build
-      run: earthly --push +run-all
+      run: earthly --push +build-all
