@@ -4,6 +4,7 @@ if [ "$INIT" = "true" ]; then
     echo "Only copies files over before start"
     echo "Local Volume Setup"
     echo "So that you can use live volume within same desktop folder"
+    tr -dc '[:alnum:]' < /dev/urandom | head -c 16 > /tmp/passfile
     cp -r /app/* /app/CrushFTP11 2>/dev/null
     rm -rf /app/CrushFTP11/CrushFTP11
     exit 0
@@ -22,5 +23,4 @@ else
     # java -jar CrushFTP.jar -a $CRUSHFTP_ADMIN_USERNAME $CRUSHFTP_ADMIN_PASSWORD
     # Execute your Java command
     java -Ddir=/app/ -Xmx512M -jar /app/plugins/lib/CrushFTPJarProxy.jar -ad ${CRUSHFTP_ADMIN_USERNAME:-crushadmin} ${CRUSHFTP_ADMIN_PASSWORD:-password}
-
 fi
