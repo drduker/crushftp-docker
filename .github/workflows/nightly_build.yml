@@ -2,7 +2,7 @@ name: Nightly Earthly Build
 
 on:
   schedule:
-    - cron: '0 0 * * *' # every night at midnight
+    - cron: '0 */2 * * *' # every night at midnight
   push:
     branches:
       - main
