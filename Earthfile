@@ -80,6 +80,7 @@ build-dev-11:
   # WORKDIR /app
   # VOLUME [ "/app/CrushFTP" ]
   ENTRYPOINT ["sh", "/entrypoint.sh"]
+  ENV PASSFILE=/app/CrushFTP11/passfile
   SAVE IMAGE --push crushftp/crushftp11:latest-dev crushftp/crushftp11:$VERSION-dev
 
 build-11:
@@ -102,6 +103,7 @@ build-11:
   # WORKDIR /app
   # VOLUME [ "/app/CrushFTP" ]
   ENTRYPOINT ["java", "-Ddir=/app", "-Xmx512M", "-jar", "plugins/lib/CrushFTPJarProxy.jar", "-ad", "crushadmin", "password"]
+  ENV PASSFILE=/app/CrushFTP11/passfile
   SAVE IMAGE --push crushftp/crushftp11:latest crushftp/crushftp11:$VERSION
 
 

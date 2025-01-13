@@ -10,7 +10,7 @@ services:
       - '8443:443'
     environment:
     #   CRUSHFTP_ADMIN_USERNAME: "crushadmin"
-      CRUSHFTP_ADMIN_PASSWORD: "passfile"
+      CRUSHFTP_ADMIN_PASSWORD: "changeme"
     # build:
     #   context: .
     #   dockerfile: local.Dockerfile
