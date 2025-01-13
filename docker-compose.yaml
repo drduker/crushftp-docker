@@ -7,7 +7,6 @@ services:
       - INIT=true
     volumes:
     - ./CrushFTP11/:/app/CrushFTP11
-    - ./passfile:/tmp/passfile
     entrypoint: ["/bin/sh", "-c", "/entrypoint.sh"]
     user: "${UID}:${GID}"
   crushftp:
@@ -19,11 +18,8 @@ services:
       - '8443:443'
     volumes:
     - ./CrushFTP11/:/app/CrushFTP11
-    - ./passfile:/tmp/passfile
-    environment:
-      - passfile=/tmp/passfile
     working_dir: "/app/CrushFTP11"
-    entrypoint: ["java", "-Ddir=/app/CrushFTP11", "-Xmx512M", "-jar", "/app/CrushFTP11/plugins/lib/CrushFTPJarProxy.jar", "-ad", "crushadmin", "passfile"]
+    entrypoint: ["java", "-Ddir=/app/CrushFTP11", "-Xmx512M", "-jar", "/app/CrushFTP11/plugins/lib/CrushFTPJarProxy.jar", "-ad", "crushadmin", "PASSFILE"]
     user: "${UID}:${GID}"
     depends_on:
       crushftp-init:
