@@ -15,7 +15,17 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      
+    - name: Keep Workflow Alive
+      run: |
+        echo "Last run: $(date -u +"%Y-%m-%dT%H:%M:%SZ")" > .github/workflows/last_run.txt
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git remote set-url origin https://git:${{ secrets.PAT_TOKEN }}@github.com/drduker/crushftp-docker.git
+        git add .github/workflows/last_run.txt
+        git commit -m "Keep workflow active - $(date -u +"%Y-%m-%dT%H:%M:%SZ")" || exit 0
+        git push origin main
+      env:
+        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
     - name: Install Earthly
       run: |
         sudo apt update
@@ -31,14 +41,3 @@ jobs:
         echo "Version is $VERSION"
         export CURRENT_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
         earthly --no-cache --push +build-all --VERSION=${VERSION} --RFC_DATE_TIME=${CURRENT_DATE}
-    - name: Keep Workflow Alive
-      run: |
-        echo "Last run: $(date -u +"%Y-%m-%dT%H:%M:%SZ")" > .github/workflows/last_run.txt
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/drduker/crushftp-docker.git
-        git add .github/workflows/last_run.txt
-        git commit -m "Keep workflow active - $(date -u +"%Y-%m-%dT%H:%M:%SZ")" || exit 0
-        git push origin main
-      env:
-        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
