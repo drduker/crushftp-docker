@@ -31,3 +31,11 @@ jobs:
         echo "Version is $VERSION"
         export CURRENT_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
         earthly --no-cache --push +build-all --VERSION=${VERSION} --RFC_DATE_TIME=${CURRENT_DATE}
+    - name: Keep Workflow Alive
+      run: |
+        echo "Last run: $(date -u +"%Y-%m-%dT%H:%M:%SZ")" > .github/workflows/last_run.txt
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+        git add .github/workflows/last_run.txt
+        git commit -m "Keep workflow active - $(date -u +"%Y-%m-%dT%H:%M:%SZ")" || exit 0
+        git push
