@@ -36,8 +36,9 @@ jobs:
         echo "Last run: $(date -u +"%Y-%m-%dT%H:%M:%SZ")" > .github/workflows/last_run.txt
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/drduker/crushftp-docker.git
         git add .github/workflows/last_run.txt
         git commit -m "Keep workflow active - $(date -u +"%Y-%m-%dT%H:%M:%SZ")" || exit 0
-        git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com//drduker/crushftp-docker.git HEAD:main
+        git push origin main
       env:
         PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
