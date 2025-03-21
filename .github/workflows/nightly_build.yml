@@ -20,7 +20,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Keep Workflow Alive
       run: |
-        LAST_RUN_FILE=".github/workflows/last_run.txt"
+        LAST_RUN_FILE="last_run.txt"
         echo "Last run: $(date -u +"%Y-%m-%dT%H:%M:%SZ")" > "$LAST_RUN_FILE"
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
