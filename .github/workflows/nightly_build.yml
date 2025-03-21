@@ -9,6 +9,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - '.github/last_run.txt'
   workflow_dispatch:
 
 jobs:
