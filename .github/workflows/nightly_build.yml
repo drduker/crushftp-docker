@@ -40,4 +40,4 @@ jobs:
         git commit -m "Keep workflow active - $(date -u +"%Y-%m-%dT%H:%M:%SZ")" || exit 0
         git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
       env:
-        GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
