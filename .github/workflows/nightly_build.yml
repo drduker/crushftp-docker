@@ -1,5 +1,8 @@
 name: Nightly Earthly Build
 
+permissions:
+  contents: write
+
 on:
   schedule:
     - cron: '0 */2 * * *' # every night at midnight
